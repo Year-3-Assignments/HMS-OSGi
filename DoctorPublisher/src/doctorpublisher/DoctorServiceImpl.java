@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class DoctorServiceImpl implements DoctorService {
 	private ArrayList<Doctor> doctors = new ArrayList<>();
+	private ArrayList<Doctor> channeledDoctors = new ArrayList<>();
 
 	@Override
 	public void getAvailableDoctors() {
@@ -42,8 +43,12 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public void channelDoctor(Integer doctorId) {
-		// TODO Auto-generated method stub
-
+		for (Doctor doctor: doctors) {
+			if(doctor.getDoctorId().equals(doctorId)) {
+				doctor.setAvailable(false);
+				channeledDoctors.add(doctor);
+			}
+		}
 	}
 
 	@Override

@@ -12,8 +12,6 @@ public class Activator implements BundleActivator {
 		System.out.println("Doctor Service Started...");
 		DoctorService service = new DoctorServiceImpl();
 		doctorServiceRegister = context.registerService(DoctorService.class.getName(), service, null);
-		service.createDoctor();
-		service.getAllDoctors();
 	}
 
 	public void stop(BundleContext context) throws Exception {
