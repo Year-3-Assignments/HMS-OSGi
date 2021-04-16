@@ -14,7 +14,7 @@ public class DatabaseImpl implements Database {
 	
 	public DatabaseImpl() {
 		this.diverName = "com.mysql.jdbc.Driver";
-		this.databaseConnectionLink = "jdbc:mysql://localhost:3306/online_banking";
+		this.databaseConnectionLink = "jdbc:mysql://localhost:3306/online_banking?characterEncoding=latin1&useConfigs=maxPerformance";
 		this.databaseUser = "root";
 		this.databasePassword = "RavB1998";
 	}
