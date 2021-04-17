@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DoctorPublisher
+Bundle-SymbolicName: DoctorPublisher
+Bundle-Version: 1.0.0
+Bundle-Activator: doctorpublisher.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: DoctorPublisher
+Import-Package: hms_db,
+ org.osgi.framework;version="1.3.0"
+Export-Package: doctorpublisher

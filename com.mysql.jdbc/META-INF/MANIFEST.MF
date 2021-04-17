@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jdbc
+Bundle-SymbolicName: com.mysql.jdbc
+Bundle-Version: 1.0.0
+Automatic-Module-Name: com.mysql.jdbc
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: com.mysql.jdbc
