@@ -67,7 +67,7 @@ public class DoctorServiceImpl implements DoctorService {
 	@Override
 	public void channelDoctor(Integer doctorId) {
 		String sqlQuery1 = "UPDATE doctors SET availability = '"+ 0 +"' WHERE id = '"+ doctorId +"'";
-		// Need to implement patient management bundle to implement rest of this function
+		// Need to implement patient management bundle to implement rest of this function.
 	}
 
 	@Override
