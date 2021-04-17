@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PatientPublisher
+Bundle-SymbolicName: PatientPublisher
+Bundle-Version: 1.0.0
+Bundle-Activator: patientpublisher.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Automatic-Module-Name: PatientPublisher
+Import-Package: hms_db,
+ org.osgi.framework;version="1.3.0"
+Export-Package: patientpublisher
