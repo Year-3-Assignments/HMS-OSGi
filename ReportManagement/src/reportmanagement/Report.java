@@ -1,4 +1,4 @@
-package reportpublisher;
+package reportmanagement;
 
 public class Report {
 	private Integer reportID;

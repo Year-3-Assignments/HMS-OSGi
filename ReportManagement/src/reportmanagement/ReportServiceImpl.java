@@ -1,4 +1,4 @@
-package reportpublisher;
+package reportmanagement;
 
 import java.util.ArrayList;
 import java.util.Scanner;
