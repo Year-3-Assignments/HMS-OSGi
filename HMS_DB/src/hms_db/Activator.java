@@ -12,7 +12,6 @@ public class Activator implements BundleActivator {
 		System.out.println("HMS DB Publisher service started...");
 		Database database = new DatabaseImpl();
 		serviceRegistration = context.registerService(Database.class.getName(), database, null);
-		database.getDatabaseConnection();
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
