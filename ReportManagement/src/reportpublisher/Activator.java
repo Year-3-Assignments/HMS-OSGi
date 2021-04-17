@@ -1,4 +1,4 @@
-package reportmanagement;
+package reportpublisher;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

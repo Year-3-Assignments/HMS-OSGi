@@ -1,4 +1,4 @@
-package reportmanagement;
+package reportpublisher;
 
 public interface ReportService {
 	
