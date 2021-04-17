@@ -1,0 +1,45 @@
+CREATE TABLE `hms_db`.`doctors` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NULL,
+  `phone_number` VARCHAR(10) NULL,
+  `specialization` VARCHAR(45) NULL,
+  `availability` TINYINT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+CREATE TABLE `hms_db`.`patients` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `last_name` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `address_1` VARCHAR(45) NULL,
+  `address_2` VARCHAR(45) NULL,
+  `age` INT NULL,
+  `phone_number` VARCHAR(10) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+ALTER TABLE `hms_db`.`patients` 
+CHANGE COLUMN `age` `age` INT NULL DEFAULT NULL AFTER `last_name`,
+CHANGE COLUMN `phone_number` `phone_number` VARCHAR(10) NULL DEFAULT
+
+CREATE TABLE `hms_db`.`channel_doctors` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `doctor_id` INT NULL,
+  `patient_id` INT NULL,
+  `time` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  INDEX `doctor_fk_idx` (`doctor_id` ASC) VISIBLE,
+  INDEX `patient_fk_idx` (`patient_id` ASC) VISIBLE,
+  CONSTRAINT `doctor_fk`
+    FOREIGN KEY (`doctor_id`)
+    REFERENCES `hms_db`.`doctors` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `patient_fk`
+    FOREIGN KEY (`patient_id`)
+    REFERENCES `hms_db`.`patients` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
