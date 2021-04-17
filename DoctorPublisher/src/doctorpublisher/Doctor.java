@@ -19,15 +19,6 @@ public class Doctor {
 		this.available = available;
 	}
 
-	public Doctor(Integer doctorId, String firstName, String lastName, String speciality, String phoneNumber, Integer available) {
-		this.doctorId = doctorId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.speciality = speciality;
-		this.phoneNumber = phoneNumber;
-		this.available = available;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
