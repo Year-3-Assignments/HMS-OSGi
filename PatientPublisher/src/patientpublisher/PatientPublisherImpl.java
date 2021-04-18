@@ -51,9 +51,8 @@ public class PatientPublisherImpl implements PatientPublisher {
 	}
 
 	@Override
-	public ResultSet getPatientById(Integer id) {
-		String sqlQuery = "SELECT * FROM patients WHERE ID = '"+ id +"'";
-		
+	public ResultSet getPatientByName(String name) {
+		String sqlQuery = "SELECT * FROM patients WHERE first_name LIKE '"+ name +"%" + "'";
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
