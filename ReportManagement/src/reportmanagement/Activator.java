@@ -14,6 +14,10 @@ public class Activator implements BundleActivator {
 		System.out.println("Report Service Started...");
 		ReportService service = new ReportServiceImpl();
 		reportServiceRegister = context.registerService(ReportService.class.getName(), service, null);
+		service.createReport();
+		service.getAllReport();
+		
+		
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {

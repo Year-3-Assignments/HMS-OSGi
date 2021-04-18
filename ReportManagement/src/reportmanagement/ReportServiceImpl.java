@@ -25,7 +25,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 	
 	@Override
-	public void createReport(Report reports) {
+	public void createReport() {
 		// TODO Auto-generated method stub
 		Integer reportID;
 		String patientName,doctorName;
@@ -39,6 +39,7 @@ public class ReportServiceImpl implements ReportService {
 		
 		System.out.print("Enter Patient Name- ");
 		patientName = scanner.nextLine();
+		scanner.nextLine();
 		
 		System.out.print("Enter Doctor Name - ");
 		doctorName = scanner.nextLine();
