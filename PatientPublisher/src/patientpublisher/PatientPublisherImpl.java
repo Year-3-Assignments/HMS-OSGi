@@ -88,5 +88,4 @@ public class PatientPublisherImpl implements PatientPublisher {
 			return resultSet;
 		}
 	}
-
 }
