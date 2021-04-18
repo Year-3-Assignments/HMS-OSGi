@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import hms_db.Database;
 import hms_db.DatabaseImpl;
@@ -13,19 +14,34 @@ public class PharmacyServiceImpl implements PharmacyService {
 	private Statement statement = null;
 	private Database database;
 	private ResultSet resultSet;
-	
+	private Scanner scan;
+
 	public PharmacyServiceImpl() {
 		database = new DatabaseImpl();
 		connection = database.getDatabaseConnection();
+		this.scan = new Scanner(System.in);
 	}
 
 	@Override
-	public void insertPharmacyMedicines(Pharmacy pharmacy) {
-		// TODO Auto-generated method stub
+	public void insertPharmacyMedicines() {
+
+		String medicinename, unitcost, noOfStock;
+			
+		System.out.println("=== Add Medicine Information to the Pharmacy Stock ===");
+		
+		System.out.print("Enter Medicine name: ");
+		medicinename = scan.nextLine();
+		
+		System.out.print("Enter Unit Cost: ");
+		unitcost = scan.nextLine();
+		
+		System.out.print("Enter Number of amount added: ");
+		noOfStock = scan.nextLine();
+		
 		String sqlQuery = "INSERT INTO medicine_pharmacy(medicineName, unitCost , noOfStock ) "
-				+ "VALUES('"+ pharmacy.getMedicineName() +"', '"+ 
-				pharmacy.getUnitCost() + "', '"+ 
-				pharmacy.getNoOfStock() + "')";
+				+ "VALUES('"+ medicinename +"', '"+ 
+				unitcost + "', '"+ 
+				noOfStock + "')";
 		
 		try 
 		{
@@ -45,7 +61,6 @@ public class PharmacyServiceImpl implements PharmacyService {
 		String sqlQuery = "SELECT * FROM medicine_pharmacy";
 		
 		try {
-			String medicineName, unitCost, noOfStock;
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
 			while(resultSet.next()) {
@@ -67,7 +82,6 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@SuppressWarnings("finally")
 	@Override
 	public ResultSet getOpenHours() {
-		// TODO Auto-generated method stub
 		
 		String sqlQuery = "SELECT openHours FROM pharmacy";
 		
@@ -84,8 +98,20 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public void insertPharmacyPrescription(String patientid, String prescribedDate, String description) {
-		// TODO Auto-generated method stub
+	public void insertPharmacyPrescription() {
+		
+		String patientid, prescribedDate, description;
+				
+		System.out.println("=== Enter Prescription Information ===");
+		
+		System.out.print("Enter Patient id: ");
+		patientid = scan.nextLine();
+		System.out.print("Enter the date prescription issued: ");
+		prescribedDate = scan.nextLine();
+		System.out.print("Enter Description: ");
+		description = scan.nextLine();
+
+
 		String sqlQuery = "INSERT INTO prescription_pharmacy(patiendid, prescribedDate, description) "
 				+ "VALUES('"+ patientid +"', '"+ 
 				prescribedDate + "', '"+ 
@@ -108,7 +134,6 @@ public class PharmacyServiceImpl implements PharmacyService {
 		String sqlQuery = "SELECT * FROM prescription_pharmacy";
 		
 		try {
-			String medicineName, unitCost, noOfStock;
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
 			while(resultSet.next()) {
@@ -128,13 +153,19 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public ResultSet getAllPrescriptionDetailsbyId(String patientId) {
-		// TODO Auto-generated method stub
+	public ResultSet getAllPrescriptionDetailsbyId() {
 
+		String patientId;
+		
+		System.out.println("=== Enter Patient Id to get Prescriptions ===");
+		
+		System.out.print("Enter Patient id: ");
+		
+		patientId = scan.nextLine();
+		
 		String sqlQuery = "SELECT * FROM prescription_pharmacy Where patiendid ='"+patientId+"'";
 		
 		try {
-			String medicineName, unitCost, noOfStock;
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
 			while(resultSet.next()) {
