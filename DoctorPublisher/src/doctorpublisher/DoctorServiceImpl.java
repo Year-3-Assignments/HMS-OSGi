@@ -74,7 +74,7 @@ public class DoctorServiceImpl implements DoctorService {
 	public void insertDoctorDetails(Doctor doctor) {
 		String sqlQuery = "INSERT INTO doctors(first_name, last_name, phone_number, specialization, availability) "
 				+ "VALUES('"+ doctor.getFirstName() +"', '"+ doctor.getLastName() +"', '"+ doctor.getPhoneNumber() +"', "
-						+ "'"+ doctor.getSpeciality() +"', '"+ doctor.isAvailable()+ "')";
+						+ "'"+ doctor.getSpeciality() +"', '"+ doctor.getAvailability() + "')";
 		
 		try {
 			statement = connection.createStatement();

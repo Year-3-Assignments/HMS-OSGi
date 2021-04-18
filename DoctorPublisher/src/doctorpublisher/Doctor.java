@@ -6,12 +6,12 @@ public class Doctor {
 	private String lastName;
 	private String speciality;
 	private String phoneNumber;
-	private boolean available;
+	private Integer available;
 	
 	public Doctor() {};
 	
-	public Doctor(Integer doctorId, String firstName, String lastName, String speciality, String phoneNumber, boolean available) {
-		this.doctorId = doctorId;
+	public Doctor(String firstName, String lastName, String speciality, String phoneNumber, Integer available) {
+		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.speciality = speciality;
@@ -43,10 +43,10 @@ public class Doctor {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public boolean isAvailable() {
+	public Integer getAvailability() {
 		return available;
 	}
-	public void setAvailable(boolean available) {
+	public void setAvailability(Integer available) {
 		this.available = available;
 	}
 	public Integer getDoctorId() {
