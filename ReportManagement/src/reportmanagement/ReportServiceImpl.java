@@ -27,6 +27,7 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Override
 	public void createReport() {
+
 		String patientName, doctorName, description;
 		LocalDateTime createdDate = LocalDateTime.now();
 		
@@ -34,6 +35,7 @@ public class ReportServiceImpl implements ReportService {
 		
 		System.out.print("Enter Patient Name: ");
 		patientName = scanner.nextLine();
+		scanner.nextLine();
 		
 		System.out.print("Enter Doctor Name: ");
 		doctorName = scanner.nextLine();
