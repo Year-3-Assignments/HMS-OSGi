@@ -139,4 +139,33 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 	}
 
+	@Override
+	public void getAssignPatients() {
+		Integer doctorId;
+		
+		System.out.print("Enter your doctor ID: ");
+		doctorId = scan.nextInt();
+		
+		String sqlQuery = "SELECT p.id, p.first_name, p.last_name, p.email, p.phone_number, p.address_1, p.address_2 "
+				+ "FROM doctors d, channel_doctors cd, patients p WHERE cd.doctor_id=d.id AND cd.patient_id=p.id "
+				+ "AND cd.doctor_id = '"+ doctorId +"'";
+		
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sqlQuery);
+			
+			System.out.println("\n-----------------------------------------Assigned Patients---------------------------------------");
+			System.out.println(String.format("%-10s %-25s %-20s %-20s %-20s", "Patient ID", "Name", "Email", "Phone Number", "Address"));
+			
+			while (resultSet.next()) {
+				String result = String.format("%-10s %-25s %-20s %-20s %-20s", resultSet.getInt("id"), resultSet.getString("first_name") + " " + resultSet.getString("last_name")
+						, resultSet.getString("email"), resultSet.getString("phone_number"), resultSet.getString("address_1") + ", " + resultSet.getString("address_2"));
+				System.out.println(result);
+			}
+			
+		} catch (SQLException exc) {
+			System.out.println("Issue with getting assigned patients detail !!!");
+			System.out.println(exc.getMessage());
+		}
+	}
 }
