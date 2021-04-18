@@ -1,103 +1,88 @@
 package reportmanagement;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+import hms_db.Database;
+import hms_db.DatabaseImpl;
 
 public class ReportServiceImpl implements ReportService {
 	
-	private ArrayList<Report> reports = new ArrayList<>();
-	private ArrayList<Report> reportRequest = new ArrayList<>();
-
-	Integer reportType;
+	private Connection connection = null;
+	private Statement statement = null;
+	private Database database;
+	private ResultSet resultSet;
+	
+	public ReportServiceImpl() {
+		database = new DatabaseImpl();
+		connection = database.getDatabaseConnection();
+	}
 	
 	@Override
-	public void createReport() {
+	public void createReport(Report reports) {
 		// TODO Auto-generated method stub
-		Integer reportID;
-		String patientName,doctorName;
+	
+		String sqlQuery = "INSERT INTO reports(patientname, doctor_name, description) "
+				+ "VALUES('"+ reports.getPatientName() +"', '"+ reports.getDoctorName() +"', '"+ reports.getDescription() +"', "
+						+ "')";
 		
-		String description;
-		Scanner scan = new Scanner(System.in);
-		
-		System.out.println("==== Create a report ====");
-		System.out.print("Enter Report ID - ");
-		reportID = scan.nextInt();
-		scan.nextLine();
-		System.out.print("Enter Patient Name- ");
-		patientName = scan.nextLine();
-		System.out.println("1 - Doctors' prescription");
-		System.out.println("2 - Pharmacy prescription");
-		System.out.println("3 - Clinical Report");
-		System.out.println("4 - Medical Report");
-		System.out.println("5 - Other");
-		System.out.println("Select Report Type - ");
-		reportType = scan.nextInt();
-		
-		switch(reportType) {
-			case 3:
-				System.out.println(" Doctors' prescription");
-				break;
-			case 2:
-				System.out.println("Pharmacy prescription");
-				break;
-			case 1:
-				System.out.println("Clinical Report");
-				break;	
-			case 0:
-				System.out.println(" Medical Report ");
-				break;		
-			default:
-				System.out.println("Other");
-				break;
-					
+		try {
+			statement = connection.createStatement();
+			statement.executeUpdate(sqlQuery);
+			System.out.println("Report details successfully inserted ...");
+		} catch (SQLException exc) {
+			System.out.println("Issue in inserting report details !!!");
+			System.out.println(exc.getMessage());
 		}
-		
-		System.out.print("Enter Doctor Name - ");
-		doctorName = scan.nextLine();
-		
-		System.out.print("Description - ");
-		description = scan.nextLine();
-		
-		Report report = new Report(reportID, patientName, doctorName, description, reportType);
-		reports.add(report);
-		
 	}
+		
+		
 
 	@Override
-	public void getAllReport() {
+	public ResultSet getAllReport() {
 		// TODO Auto-generated method stub
-		System.out.println("==== Reports ====");
-		for (Report report: reports) {
-			System.out.println("Report ID - " + report.getReportID());
-			System.out.println("Doctor Name - Dr." + report.getDoctorName());
-			System.out.println("Patient Name - " + report.getPatientName());
-			System.out.println("Description - " + report.getDescription());
-		}
+		String sqlQuery = "SELECT * FROM reports WHERE patientname = NOT NULL";
+		
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sqlQuery);
+		} catch (SQLException exc) {
+			System.out.println("There is an issue in getting all the reports !!!");
+			System.out.println(exc.getMessage());
+		}finally {
+			return resultSet;
+		} 
 	}
 
 	@Override
 	public void searchReport(Integer reportID) {
 		// TODO Auto-generated method stub
-		for (Report report: reports) {
-			if (report.getReportID().equals(reportID)) {
-				System.out.println("Report ID - " + report.getReportID());
-				System.out.println("Patient Name" + report.getPatientName() );
-				System.out.println("Doctor Name - Dr. " + report.getDoctorName());
-				System.out.println("Report Type - " + report.getReportType());
-				System.out.println("Description - "+report.getDescription());
-			}
-		}
+		String sqlQuery = "SELECT * FROM reports WHERE id = '"+ reportID +"'";
+		
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sqlQuery);
+		} catch (SQLException exc) {
+			System.out.println("There is an issue in getting the reports!!!");
+			System.out.println(exc.getMessage());
+		} 
 	}
 
 	@Override
 	public void requestReport(Integer reportID) {
 		// TODO Auto-generated method stub
-		for (Report report: reports) {
-			if(report.getReportID().equals(reportID)) {
-				report.setReportType(reportType);
-				reportRequest.add(report);
-			}
-		}
+		String sqlQuery = "SELECT * FROM reports";
+		
+		try {
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(sqlQuery);
+		} catch (SQLException exc) {
+			System.out.println("There is an issue in getting the reports!!!");
+			System.out.println(exc.getMessage());
+		} 
 	}
 	
 	
