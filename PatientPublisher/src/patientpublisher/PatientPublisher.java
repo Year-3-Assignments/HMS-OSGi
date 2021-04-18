@@ -5,5 +5,5 @@ import java.sql.ResultSet;
 public interface PatientPublisher {
 	public void insertPatientDetails(Patient patient);
 	public ResultSet getAllPatientDetails();
-	public ResultSet getPatientById(Integer id);
+	public ResultSet getPatientByName(String name);
 }

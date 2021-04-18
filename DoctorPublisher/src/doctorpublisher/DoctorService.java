@@ -8,5 +8,5 @@ public interface DoctorService {
 	public void getAvailableDoctors();
 	public ResultSet getAllDoctors();
 	public ResultSet searchDoctorDetails(Integer doctorId);
-	public void channelDoctor(Integer doctorId);
+	public void channelDoctor();
 }

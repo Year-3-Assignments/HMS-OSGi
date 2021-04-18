@@ -4,19 +4,24 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import hms_db.Database;
 import hms_db.DatabaseImpl;
+import patientpublisher.PatientPublisher;
+import patientpublisher.PatientPublisherImpl;
 
 public class DoctorServiceImpl implements DoctorService {
 	private Connection connection = null;
 	private Statement statement = null;
 	private Database database;
 	private ResultSet resultSet;
+	private Scanner scan;
 	
 	public DoctorServiceImpl() {
 		database = new DatabaseImpl();
 		connection = database.getDatabaseConnection();
+		scan = new Scanner(System.in);
 	}
 
 	@Override
@@ -73,9 +78,49 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public void channelDoctor(Integer doctorId) {
-		String sqlQuery1 = "UPDATE doctors SET availability = '"+ 0 +"' WHERE id = '"+ doctorId +"'";
-		// Need to implement patient management bundle to implement rest of this function.
+	public void channelDoctor() {
+		Integer channelling, doctorId, patientId;
+		String patientName;
+		System.out.print("\nDo you want to channel a doctor(1 = Yes, 0 = No): ");
+		channelling = scan.nextInt();
+		scan.nextLine();
+		
+		if (channelling.equals(1)) {
+			System.out.print("Enter your first name: ");
+			patientName = scan.nextLine();
+			System.out.print("Select doctor ID: ");
+			doctorId = scan.nextInt();
+			scan.nextLine();
+			
+			try {
+				PatientPublisher patient = new PatientPublisherImpl();
+				// Fetch patient information
+				ResultSet patientDetails = patient.getPatientByName(patientName);
+				// Fetch doctor information
+				ResultSet doctorDetails = this.searchDoctorDetails(doctorId);
+				// Create channel doctor object
+				
+				while(patientDetails.next() && doctorDetails.next()) {
+					patientId = patientDetails.getInt("id");
+					doctorId = doctorDetails.getInt("id");
+					
+					ChannelDoctor channelDoctor = new ChannelDoctor(doctorId, patientId);
+					// Insert channeling details to database
+					String sqlQuery = "INSERT INTO channel_doctors(doctor_id, patient_id, time) VALUES('"+ channelDoctor.getDoctorId() +"', "
+							+ "'"+ channelDoctor.getPatientId() +"', '"+ channelDoctor.getTime() +"')";
+					
+					String updateQuery = "UPDATE doctors SET availability = 0 WHERE id = '"+ doctorId +"'"; 
+					
+					statement = connection.createStatement();
+					statement.executeUpdate(sqlQuery);
+					statement.executeUpdate(updateQuery);
+				}
+				System.out.println("Your channel details successfully stored...");
+			} catch (SQLException exc) {
+				System.out.println("Issue with channelling !!!");
+				System.out.println(exc.getMessage());
+			}
+		}
 	}
 
 	@Override
