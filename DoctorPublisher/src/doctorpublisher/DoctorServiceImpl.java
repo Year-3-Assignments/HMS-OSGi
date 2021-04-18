@@ -20,18 +20,26 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public ResultSet getAvailableDoctors() {
+	public void getAvailableDoctors() {
 		String sqlQuery = "SELECT * FROM doctors WHERE availability = 1";
 		
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
+			
+			// Display available doctor information to the console
+			System.out.println("\n---------------------------Available Doctors--------------------------");
+			System.out.println(String.format("%-10s %-25s %-20s %-20s", "Doctor ID", "Name", "Specialization", "Phone Number"));
+			while (resultSet.next()) {
+				String result = String.format("%-10s %-25s %-20s %-20s", resultSet.getInt("id"), "Dr. " + resultSet.getString("first_name") + 
+						" " + resultSet.getString("last_name"), resultSet.getString("specialization"), resultSet.getString("phone_number"));
+				System.out.println(result);
+			}
+			
 		} catch (SQLException exc) {
 			System.out.println("Issue with getting available doctor details !!!");
 			System.out.println(exc.getMessage());
-		} finally {
-			return resultSet;
-		}
+		} 
 	}
 
 	@Override
