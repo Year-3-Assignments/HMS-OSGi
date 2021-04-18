@@ -58,7 +58,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public void searchReport(Integer reportID) {
+	public ResultSet searchReport(Integer reportID) {
 		// TODO Auto-generated method stub
 		String sqlQuery = "SELECT * FROM reports WHERE id = '"+ reportID +"'";
 		
@@ -68,13 +68,15 @@ public class ReportServiceImpl implements ReportService {
 		} catch (SQLException exc) {
 			System.out.println("There is an issue in getting the reports!!!");
 			System.out.println(exc.getMessage());
-		} 
+		} finally {
+			return resultSet;
+		}
 	}
 
 	@Override
 	public void requestReport(Integer reportID) {
 		// TODO Auto-generated method stub
-		String sqlQuery = "SELECT * FROM reports";
+		String sqlQuery = "SELECT * FROM reports where id ='"+reportID +"'";
 		
 		try {
 			statement = connection.createStatement();
