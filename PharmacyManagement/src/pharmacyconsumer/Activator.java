@@ -25,7 +25,10 @@ public class Activator implements BundleActivator {
 				
 				System.out.println("1. Insert medicine details");
 				System.out.println("2. Get all medicine details");
-				
+				System.out.println("3. Insert Prescription details");
+				System.out.println("4. Get all Prescription details");
+				System.out.println("5. Get Prescription details by Patient Id");
+
 				System.out.print("Enter your choice: ");
 				option = scan.nextLine();
 				
@@ -33,6 +36,12 @@ public class Activator implements BundleActivator {
 					service.insertMedicine();
 				}else if (Integer.parseInt(option) == 2) {
 					service.getAllDetails();
+				}else if (Integer.parseInt(option) == 3) {
+					service.insertPrescription();
+				}else if (Integer.parseInt(option) == 4) {
+					service.getAllPrescriptionDetails();
+				}else if (Integer.parseInt(option) == 5) {
+					service.getAllPrescriptionDetailsbyId();
 				}
 				
 			}while(Integer.parseInt(option) != 0);	
