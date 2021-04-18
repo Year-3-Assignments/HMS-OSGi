@@ -5,16 +5,22 @@ public class Report {
 	private String patientName;
 	private String doctorName;
 	private String description;
-	private Integer reportType;
 	
 	
-	public Report(Integer reportID, String patientName, String doctorName, String description, Integer reportType) {
+	public Report() {}
+	
+	public Report(String patientName, String doctorName, String description) {
+		this.patientName = patientName;
+		this.doctorName = doctorName;
+		this.description = description;
+	}
+	public Report(Integer reportID, String patientName, String doctorName, String description) {
 		super();
 		this.reportID = reportID;
 		this.patientName = patientName;
 		this.doctorName = doctorName;
 		this.description = description;
-		this.reportType = reportType;
+		
 	}
 	public Integer getReportID() {
 		return reportID;
@@ -40,13 +46,6 @@ public class Report {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getReportType() {
-		return reportType;
-	}
-	public void setReportType(Integer reportType) {
-		this.reportType = reportType;
-	}
-	
 	
 	
 	

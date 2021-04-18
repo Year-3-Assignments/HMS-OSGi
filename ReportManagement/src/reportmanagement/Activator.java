@@ -8,8 +8,6 @@ public class Activator implements BundleActivator {
 
 	private ServiceRegistration reportServiceRegister;
 
-	
-
 	public void start(BundleContext context) throws Exception {
 		System.out.println("Report Service Started...");
 		ReportService service = new ReportServiceImpl();
