@@ -43,3 +43,17 @@ CREATE TABLE `hms_db`.`channel_doctors` (
     REFERENCES `hms_db`.`patients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+CREATE TABLE `hms_db`.`medicine_pharmacy` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `medicineName` VARCHAR(45) NULL,
+  `unitCost` VARCHAR(45) NULL,
+  `noOfStock` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `hms_db`.`prescription_pharmacy` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `patiendid` INT NULL,
+  `prescribedDate` VARCHAR(45) NULL,
+  `description` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`));
