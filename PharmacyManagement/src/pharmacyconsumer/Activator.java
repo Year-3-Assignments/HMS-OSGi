@@ -24,30 +24,21 @@ public class Activator implements BundleActivator {
 			String option = "1";
 
 			do{
-				
-				System.out.println("=== Pharmacy Management System ===");
-				
-				System.out.println("1. Insert medicine details");
-				System.out.println("2. Get all medicine details");
-				System.out.println("3. Insert Prescription details");
-				System.out.println("4. Get all Prescription details");
-				System.out.println("5. Get Prescription details by Patient Id");
+				System.out.println("\n-------- Pharmacy Management System --------");
+				System.out.println("1. Insert Prescription details");
+				System.out.println("2. Get all Prescription details");
+				System.out.println("3. Get Prescription details by Patient Id");
 
 				System.out.print("Enter your choice: ");
 				option = scan.nextLine();
 				
-				if(Integer.parseInt(option) == 1) {
-					service.insertPharmacyMedicines();
-				}else if (Integer.parseInt(option) == 2) {
-					service.getAllMedicineDetails();
-				}else if (Integer.parseInt(option) == 3) {
+				if (Integer.parseInt(option) == 1) {
 					service.insertPharmacyPrescription();
-				}else if (Integer.parseInt(option) == 4) {
+				}else if (Integer.parseInt(option) == 2) {
 					service.getAllPrescriptionDetails();
-				}else if (Integer.parseInt(option) == 5) {
+				}else if (Integer.parseInt(option) == 3) {
 					service.getAllPrescriptionDetailsbyId();
 				}
-				
 			}while(Integer.parseInt(option) != 0);	
 			
 	}

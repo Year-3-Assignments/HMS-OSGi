@@ -25,20 +25,20 @@ public class LaboratoryServiceImpl implements LaboratoryService{
 	Scanner scanner = new Scanner(System.in);
 	@Override
 	public void createTest() {
-		// TODO Auto-generated method stub
-
-		System.out.println("Enter the Test Name: ");
+		System.out.println("\n-------- New Lab Test --------");
+		System.out.print("Enter the Test Name: ");
 		String testName = scanner.nextLine();
+		
+		System.out.print("Enter the Patient ID: ");
+		Integer patientId = scanner.nextInt();
 		scanner.nextLine();
 		
-		System.out.println("Enter the Patient ID: ");
-		String patientId = scanner.nextLine();
-		
-		System.out.println("Description : ");
+		System.out.print("Description : ");
 		String description = scanner.nextLine();
 		
-		System.out.println("Price : ");
-		double price = scanner.nextDouble();
+		System.out.print("Price : ");
+		Integer price = scanner.nextInt();
+		scanner.nextLine();
 		
 		String sqlQuery = "INSERT INTO laboratory(test_name, patientId, description, price) VALUES('"+ testName+"', '"+ patientId +"', '"+ description +"', '"+ price +"')";
 		
@@ -55,33 +55,28 @@ public class LaboratoryServiceImpl implements LaboratoryService{
 
 	@Override
 	public void getAllTests() {
-		// TODO Auto-generated method stub
 		String sqlQuery = "SELECT * FROM laboratory";
 		
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
-			System.out.println("==== Lab Results ====");
-			System.out.println(String.format("%-10s %-25s %-20s %-20s", "Lab ID , Test Name,Patient ID, Description , Price, Time"));
+			System.out.println("\n------------------------------------- Lab Information ----------------------------------------");
+			System.out.println(String.format("%-10s %-25s %-20s %-30s %-20s", "Lab ID" , "Test Name", "Patient ID", "Description" , "Price"));
 			while (resultSet.next()) {
-				String result = String.format("%-10s %-25s %-20s %-20s", resultSet.getInt("id"), " " + resultSet.getString("test_name") + 
-						" " + resultSet.getInt("patientId"), resultSet.getString("description"),resultSet.getDouble("Price"));
+				String result = String.format("%-10s %-25s %-20s %-30s %-20s", resultSet.getInt("id"), resultSet.getString("test_name"), 
+						resultSet.getInt("patientId"), resultSet.getString("description"),resultSet.getInt("price"));
 				System.out.println(result);
 			}
-			
 		} catch (SQLException exc) {
 			System.out.println("There is an issue in getting all the lab tests !!!");
 			System.out.println(exc.getMessage());
-		} 
-	
-		
+		} 	
 	}
 
 	@Override
 	public void getTestById() {
-		// TODO Auto-generated method stub
 		Integer testID;
-		System.out.print("Select a Laboratory ID: ");
+		System.out.print("\nSelect a Laboratory ID: ");
 		testID = scanner.nextInt();
 		scanner.nextLine();
 		String sqlQuery = "SELECT * FROM laboratory WHERE id = '"+ testID +"'";
@@ -89,11 +84,11 @@ public class LaboratoryServiceImpl implements LaboratoryService{
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
-			System.out.println("==== Lab Results ====");
-			System.out.println(String.format("%-10s %-25s %-20s %-20s", "Lab ID , Test Name,Patient ID, Description , Price, Time"));
+			System.out.println("------------------------------------- Lab Results -------------------------------------");
+			System.out.println(String.format("%-10s %-25s %-20s %-30s %-30s", "Lab ID" , "Test Name", "Patient ID", "Description" , "Price"));
 			while (resultSet.next()) {
-				String result = String.format("%-10s %-25s %-20s %-20s", resultSet.getInt("id"), " " + resultSet.getString("test_name") + 
-						" " + resultSet.getInt("patientId"), resultSet.getString("description"),resultSet.getDouble("Price"));
+				String result = String.format("%-10s %-25s %-20s %-30s %-30s", resultSet.getInt("id"), resultSet.getString("test_name"), 
+						resultSet.getInt("patientId"), resultSet.getString("description"),resultSet.getInt("price"));
 				System.out.println(result);
 			}
 		} catch (SQLException exc) {
@@ -102,8 +97,4 @@ public class LaboratoryServiceImpl implements LaboratoryService{
 		} 
 	
 	}
-
-	
-	
-
 }

@@ -48,18 +48,24 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public ResultSet getAllDoctors() {
+	public void getAllDoctors() {
 		String sqlQuery = "SELECT * FROM doctors";
 		
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
+			// Display the results
+			System.out.println("\n--------------------------- Doctors Information --------------------------");
+			System.out.println(String.format("%-10s %-25s %-20s %-20s", "Doctor ID", "Name", "Specialization", "Phone Number"));
+			while (resultSet.next()) {
+				String result = String.format("%-10s %-25s %-20s %-20s", resultSet.getInt("id"), "Dr. " + resultSet.getString("first_name") + 
+						" " + resultSet.getString("last_name"), resultSet.getString("specialization"), resultSet.getString("phone_number"));
+				System.out.println(result);
+			}
 		} catch (SQLException exc) {
 			System.out.println("Issue with getting doctor details !!!");
 			System.out.println(exc.getMessage());
-		} finally {
-			return resultSet;
-		}
+		} 
 	}
 
 	@Override
@@ -124,7 +130,25 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public void insertDoctorDetails(Doctor doctor) {
+	public void insertDoctorDetails() {
+		String firstName, lastName, phoneNumber, sepecialization;
+		Integer availability;
+		
+		System.out.println("\n------- Insert New Doctor To System --------");
+		System.out.print("Enter doctor's first name: ");
+		firstName = scan.nextLine();
+		System.out.print("Enter doctor's last name: ");
+		lastName = scan.nextLine();
+		System.out.print("Enter Specialization: ");
+		sepecialization = scan.nextLine();
+		System.out.print("Enter doctor's contact number: ");
+		phoneNumber = scan.nextLine();
+		System.out.print("Enter availability: ");
+		availability = scan.nextInt();
+		scan.nextLine();
+		
+		Doctor doctor = new Doctor(firstName, lastName, sepecialization, phoneNumber, availability);
+		
 		String sqlQuery = "INSERT INTO doctors(first_name, last_name, phone_number, specialization, availability) "
 				+ "VALUES('"+ doctor.getFirstName() +"', '"+ doctor.getLastName() +"', '"+ doctor.getPhoneNumber() +"', "
 						+ "'"+ doctor.getSpeciality() +"', '"+ doctor.getAvailability() + "')";

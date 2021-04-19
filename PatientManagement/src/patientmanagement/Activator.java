@@ -20,7 +20,7 @@ public class Activator implements BundleActivator {
 		DoctorService doctorService = (DoctorService) context.getService(doctorPublisherReference);
 		PatientPublisher service = (PatientPublisher) context.getService(patientManagementReference);
 		
-//		service.insertPatientDetails();
+		service.insertPatientDetails();
 		doctorService.getAvailableDoctors();
 		doctorService.channelDoctor();
 	}

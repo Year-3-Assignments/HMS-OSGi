@@ -9,4 +9,5 @@ Automatic-Module-Name: DirectorManagement
 Import-Package: com.mysql.jdbc,
  doctorpublisher,
  hms_db,
- org.osgi.framework;version="1.3.0"
+ org.osgi.framework;version="1.3.0",
+ pharmacymanagement

@@ -31,11 +31,10 @@ public class ReportServiceImpl implements ReportService {
 		String patientName, doctorName, description;
 		LocalDateTime createdDate = LocalDateTime.now();
 		
-		System.out.println("==== Create a report ====");
+		System.out.println("\n--------- Create a report ----------");
 		
 		System.out.print("Enter Patient Name: ");
 		patientName = scanner.nextLine();
-		scanner.nextLine();
 		
 		System.out.print("Enter Doctor Name: ");
 		doctorName = scanner.nextLine();
@@ -56,8 +55,6 @@ public class ReportServiceImpl implements ReportService {
 		}
 	}
 		
-		
-
 	@Override
 	public void getAllReport() {	
 		String sqlQuery = "SELECT * FROM reports";
@@ -65,11 +62,11 @@ public class ReportServiceImpl implements ReportService {
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
-			System.out.println("==== Reports ====");
-			System.out.println(String.format("%-10s %-25s %-20s %-20s", "Report ID", "Patient Name", "Doctor Name", "Description"));
+			System.out.println("\n---------------------------------------------- All Reports ------------------------------------------");
+			System.out.println(String.format("%-10s %-16s %-20s %-30s %-20s", "Report ID", "Patient Name", "Doctor Name", "Description", "Created Date"));
 			while (resultSet.next()) {
-				String result = String.format("%-10s %-25s %-20s %-20s", resultSet.getInt("id"), " " + resultSet.getString("patient_name") + 
-						" " + resultSet.getString("doctor_name"), resultSet.getString("description"));
+				String result = String.format("%-10s %-16s %-20s %-30s %-20s", resultSet.getInt("id"), resultSet.getString("patient_name"), 
+						resultSet.getString("doctor_name"), resultSet.getString("description"), resultSet.getString("created_date"));
 				System.out.println(result);
 			}
 		} catch (SQLException exc) {
@@ -81,7 +78,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public void searchReport() {
 		Integer reportID;
-		System.out.print("Select a report ID: ");
+		System.out.print("\nSelect a report ID: ");
 		reportID = scanner.nextInt();
 		scanner.nextLine();
 		String sqlQuery = "SELECT * FROM reports WHERE id = '"+ reportID +"'";
@@ -89,11 +86,12 @@ public class ReportServiceImpl implements ReportService {
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
-			
-			System.out.println(String.format("%-10s %-25s %-20s %-20s", "Report ID", "Patient Name", "Doctor Name", "Description"));
+			// Display the results
+			System.out.println();
+			System.out.println(String.format("%-10s %-16s %-20s %-30s %-20s", "Report ID", "Patient Name", "Doctor Name", "Description", "Created Date"));
 			while (resultSet.next()) {
-				String result = String.format("%-10s %-25s %-20s %-20s", resultSet.getInt("id"), " " + resultSet.getString("patient_name") + 
-						" " + resultSet.getString("doctor_name"), resultSet.getString("description"));
+				String result = String.format("%-10s %-16s %-20s %-30s %-20s", resultSet.getInt("id"), resultSet.getString("patient_name"), 
+						resultSet.getString("doctor_name"), resultSet.getString("description"), resultSet.getString("created_date"));
 				System.out.println(result);
 			}
 		} catch (SQLException exc) {

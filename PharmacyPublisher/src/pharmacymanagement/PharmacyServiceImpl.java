@@ -27,9 +27,9 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 		String medicinename, unitcost, noOfStock;
 			
-		System.out.println("=== Add Medicine Information to the Pharmacy Stock ===");
+		System.out.println("\n----------- Add Medicine Information to the Pharmacy Stock ------------");
 		
-		System.out.print("Enter Medicine name: ");
+		System.out.print("\nEnter Medicine name: ");
 		medicinename = scan.nextLine();
 		
 		System.out.print("Enter Unit Cost: ");
@@ -38,7 +38,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		System.out.print("Enter Number of amount added: ");
 		noOfStock = scan.nextLine();
 		
-		String sqlQuery = "INSERT INTO medicine_pharmacy(medicineName, unitCost , noOfStock ) "
+		String sqlQuery = "INSERT INTO medicine_pharmacy(medicineName, unitCost, noOfStock) "
 				+ "VALUES('"+ medicinename +"', '"+ 
 				unitcost + "', '"+ 
 				noOfStock + "')";
@@ -54,20 +54,20 @@ public class PharmacyServiceImpl implements PharmacyService {
 		}
 	}
 	
-	@SuppressWarnings("finally")
 	@Override
 	public ResultSet getAllMedicineDetails() {
 		
 		String sqlQuery = "SELECT * FROM medicine_pharmacy";
-		
+
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
+			System.out.println("\n----------------------Pharmacy Medicine Information----------------------");
+			System.out.println(String.format("%-15s %-25s %-20s %-20s", "Medicine ID", "Type", "Number of Units", "Unit Price"));
 			while(resultSet.next()) {
-				System.out.println("Medicine Name: " +resultSet.getString("medicineName"));
-				System.out.println("Medicine Unitcost: " +resultSet.getInt("unitCost"));
-				System.out.println("Medicine No.of Stock: " +resultSet.getInt("noOfStock"));
-				System.out.println("=============  ============");
+				String result = String.format("%-15s %-25s %-20s %-20s", resultSet.getInt("id"), resultSet.getString("medicineName"), 
+						resultSet.getString("noOfStock"), "Rs." + resultSet.getString("unitCost")+ ".00");
+				System.out.println(result);
 			}
 			
 		} catch (SQLException exc) {
@@ -79,7 +79,6 @@ public class PharmacyServiceImpl implements PharmacyService {
 		
 	}
 
-	@SuppressWarnings("finally")
 	@Override
 	public ResultSet getOpenHours() {
 		
@@ -102,7 +101,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 		
 		String patientid, prescribedDate, description;
 				
-		System.out.println("=== Enter Prescription Information ===");
+		System.out.println("\n----- Enter Prescription Information -----");
 		
 		System.out.print("Enter Patient id: ");
 		patientid = scan.nextLine();
@@ -128,19 +127,18 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public ResultSet getAllPrescriptionDetails() {
-		// TODO Auto-generated method stub
-		
+	public ResultSet getAllPrescriptionDetails() {	
 		String sqlQuery = "SELECT * FROM prescription_pharmacy";
 		
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
+			// Display the results
+			System.out.println(String.format("%-15s %-25s %-20s", "Patient ID", "Description", "Created Date"));
 			while(resultSet.next()) {
-				System.out.println("Patient Id: " +resultSet.getString("patiendid"));
-				System.out.println("Prescribed Date: " +resultSet.getInt("prescribedDate"));
-				System.out.println("Description: " +resultSet.getInt("description"));
-				System.out.println("=============  ============");
+				String result = String.format("%-15s %-25s %-20s", resultSet.getInt("patiendid"), resultSet.getString("description"), 
+						resultSet.getString("prescribedDate"));
+				System.out.println(result);
 			}
 			
 		} catch (SQLException exc) {
@@ -149,18 +147,12 @@ public class PharmacyServiceImpl implements PharmacyService {
 		} finally {
 			return resultSet;
 		}
-		
 	}
 
 	@Override
 	public ResultSet getAllPrescriptionDetailsbyId() {
-
 		String patientId;
-		
-		System.out.println("=== Enter Patient Id to get Prescriptions ===");
-		
-		System.out.print("Enter Patient id: ");
-		
+		System.out.print("\nEnter Patient ID: ");
 		patientId = scan.nextLine();
 		
 		String sqlQuery = "SELECT * FROM prescription_pharmacy Where patiendid ='"+patientId+"'";
@@ -168,11 +160,12 @@ public class PharmacyServiceImpl implements PharmacyService {
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(sqlQuery);
+			// Display the results
+			System.out.println(String.format("%-15s %-25s %-20s", "Patient ID", "Description", "Created Date"));
 			while(resultSet.next()) {
-				System.out.println("Patient Id: " +resultSet.getString("patiendid"));
-				System.out.println("Prescribed Date: " +resultSet.getDate("prescribedDate"));
-				System.out.println("Description: " +resultSet.getString("description"));
-				System.out.println("=============  ============");
+				String result = String.format("%-15s %-25s %-20s", resultSet.getInt("patiendid"), resultSet.getString("description"), 
+						resultSet.getString("prescribedDate"));
+				System.out.println(result);
 			}
 			
 		} catch (SQLException exc) {
