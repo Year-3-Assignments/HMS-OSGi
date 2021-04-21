@@ -12,3 +12,5 @@
 - Do the necessary modifications 👨‍💻
 - Commit your changes 💬
 - Create a pull request to master branch ✋
+
+### Successfully Implemented. :construction_worker:
